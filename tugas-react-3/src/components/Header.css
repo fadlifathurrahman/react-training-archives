@@ -1,0 +1,11 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.header{
+    color: aliceblue;
+    display: flex;
+    background-color: cadetblue;
+    padding: 30px;
+}
