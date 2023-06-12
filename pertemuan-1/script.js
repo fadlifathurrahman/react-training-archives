@@ -1,0 +1,42 @@
+
+// console.log("Hello World!")
+
+// let nabi = {
+//     nama: "Muhammad SAW",
+//     nabiKe: 25,
+
+//     perkenalkanDiri: () => console.log("Assalamu'alaikum, nama saya " + $nama + ".")
+// }
+
+// const mahasiswa = {
+//     nama: "Putri Lestari",
+//     angkatan: {
+//         nama: "Integer",
+//     },
+// };
+
+// if (console.log(mahasiswa.programStudi?.nama) == undefined) {
+//     // alert("programStudi undifined"); 
+// };
+
+// [7, 8, 5, 6, 1, 0].forEach((n, i) => console.log(n + " adalah indeks ke-" + i));
+
+// const name = ["Fadli", "Maul", "Tri"];
+
+// name.forEach((name) => console.log("Hai " + name + " !"));
+
+// const newNames = name.forEach((name) => "Dr. " + name + " S. Pd.");
+
+// const name2 = ["Fadli", "Maul", "Tri"];
+// // const filteredNames = name2.filter((n) => n.include("i"));
+
+// let numbers = [0, 1, 2];
+// let newNumber = [...numbers, 12];
+// // console.log(newNumbers);
+// // output: [ 0, 1, 2, 12 ]
+
+// const { a, ...others } = { a: 1, b: 2, c: 3 };
+// console.log(others); // { b: 2, c: 3 }
+
+// const [first, second, ...others2] = [1, 2, 3];
+// console.log(others2); // [2, 3]

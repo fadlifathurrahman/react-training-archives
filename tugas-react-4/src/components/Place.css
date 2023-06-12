@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    color: aliceblue;
+}
+
+#header {
+    background-color: blue;
+    padding: 20px;
+}
+
+#body {
+    margin: 20px;
+    background-color: azure;
+    display: flex;
+    justify-content: center;
+}
+
+#card-container {
+    align-items: center;
+    width: 700px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: cadetblue;
+}
+
+#card-container img {
+    width: 600px;
+    height: 300px;
+}
+
+#card-container button {
+    font-weight: bold;
+    border: 0;
+    height: 30px;
+    margin: 10px;
+}
+
+.like {
+    width: 150px;
+    color: crimson;
+    background-color: aliceblue;
+}
+
+.liked {
+    width: 150px;
+    color: aliceblue;
+    background-color: crimson;
+}
+
+.show-more {
+    width: 200px;
+    color: blue;
+}
