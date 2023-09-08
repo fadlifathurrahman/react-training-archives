@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>materi-6.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<link rel="stylesheet" href="file:///d%3A/Divisi%20Pendidikan/Angkatan%2020/React/materi-react/style.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="materi-5-memperbarui-array-dalam-state"><strong>Materi 5: Memperbarui <em>Array</em> dalam <em>State</em></strong></h1>
+<h1 id="silabus">Silabus</h1>
+<table>
+<thead>
+<tr>
+<th>Pertemuan</th>
+<th>Materi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>JavaScript, Node.js, <code>npm</code>, dan <code>pnpm</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>React, Vite, Komponen, JSX, dan Meneruskan <em>Props</em></td>
+</tr>
+<tr>
+<td>3</td>
+<td><em>Styling</em>, <em>Conditional &amp; List Rendering</em>, dan Merespons <em>Event</em></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Konsep <em>State</em> dalam React</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Memperbarui Objek dalam <em>State</em></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Memperbarui <em>Array</em> dalam <em>State</em></td>
+</tr>
+<tr>
+<td>7</td>
+<td><em>Sharing</em> Data Antarkomponen Menggunakan Props</td>
+</tr>
+<tr>
+<td>8</td>
+<td><em>Routing</em> Menggunakan React Router dan <em>Deployment</em> (Vercel)</td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td><strong>UTS</strong></td>
+</tr>
+<tr>
+<td>10</td>
+<td>Tailwind CSS</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Memperdalam event dan <code>useState()</code> (memperbarui objek dan <em>array</em>)</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>useReducer()</code> dan <code>useContext()</code></td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>useRef()</code> dan <code>useEffect()</code></td>
+</tr>
+<tr>
+<td>14</td>
+<td>REST API (Express), CRUD, dan deployment (Vercel)</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Basis data (Supabase, PostgreSQL) dan <code>.env</code></td>
+</tr>
+<tr>
+<td>16</td>
+<td>Otentikasi (JWT, cookies, dan hash kata sandi)</td>
+</tr>
+<tr>
+<td>17</td>
+<td>TypeScript</td>
+</tr>
+<tr>
+<td><strong>18</strong></td>
+<td><strong>Projekan</strong></td>
+</tr>
+</tbody>
+</table>
+<h1 id="daftar-isi">Daftar isi</h1>
+<ul>
+<li><a href="#materi-5-memperbarui-array-dalam-state"><strong>Materi 5: Memperbarui <em>Array</em> dalam <em>State</em></strong></a></li>
+<li><a href="#silabus">Silabus</a></li>
+<li><a href="#daftar-isi">Daftar isi</a></li>
+<li><a href="#memperbarui-array-dalam-state">Memperbarui <em>Array</em> dalam <em>State</em></a>
+<ul>
+<li><a href="#memperbarui-array-tanpa-mutasi">Memperbarui <em>array</em> tanpa mutasi</a>
+<ul>
+<li><a href="#menambahkan-ke-array">Menambahkan ke <em>array</em></a></li>
+<li><a href="#menghapus-dari-array">Menghapus dari <em>array</em></a></li>
+<li><a href="#mengubah-array">Mengubah <em>array</em></a></li>
+<li><a href="#mengganti-item-dalam-array">Mengganti item dalam <em>array</em></a></li>
+<li><a href="#memasukkan-ke-dalam-array">Memasukkan ke dalam <em>array</em></a></li>
+<li><a href="#membuat-perubahan-lain-pada-array">Membuat perubahan lain pada <em>array</em></a></li>
+</ul>
+</li>
+<li><a href="#memperbarui-objek-di-dalam-array">Memperbarui objek di dalam <em>array</em></a>
+<ul>
+<li><a href="#tulis-logika-pembaruan-yang-ringkas-dengan-immer">Tulis logika pembaruan yang ringkas dengan Immer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="memperbarui-array-dalam-state">Memperbarui <em>Array</em> dalam <em>State</em></h1>
+<p>Dalam JavaScript, <em>array</em> bersifat <em>mutable</em> (dapat diubah), tetapi kita harus memperlakukannya sebagai <em>immutable</em> (tidak dapat diubah) saat kita menyimpannya dalam <em>state</em>. Sama seperti objek, saat kita ingin memperbarui <em>array</em> yang disimpan dalam <em>state</em>, kita perlu membuat yang baru (atau membuat salinan dari yang sudah ada), lalu menge-<em>set</em> <em>state</em> untuk menggunakan <em>array</em> baru.</p>
+<p>Kita akan belajar:</p>
+<ul>
+<li>Cara menambah, menghapus, atau mengubah item dalam <em>array</em> dalam <em>state</em> React</li>
+<li>Cara memperbarui objek di dalam <em>array</em></li>
+<li>Cara membuat penyalinan <em>array</em> tanpa penulisan ulang dengan Immer</li>
+</ul>
+<h2 id="memperbarui-array-tanpa-mutasi">Memperbarui <em>array</em> tanpa mutasi</h2>
+<p>Dalam JavaScript, <em>array</em> sebenarnya hanyalah objek (jenis lain). <a href="https://react.dev/learn/update-objects-in-state">Seperti objek</a>, <strong>kita harus memperlakukan <em>array</em> dalam <em>state</em> React sebagai <em>read_only</em>.</strong> Ini berarti kita tidak boleh meng-<em>assign</em> ulang item di dalam <em>array</em> seperti <code>arr[ 0] = 'bird'</code>, dan kita juga tidak boleh menggunakan <em>method</em>-<em>method</em> yang memutasi <em>array</em>, seperti <code>push()</code> dan <code>pop()</code>.</p>
+<p>Sebagai gantinya, setiap kali kita ingin memperbarui <em>array</em>, kita harus meneruskan <em>array</em> <em>baru</em> ke fungsi <em>setter</em> <em>state</em> kita. Untuk melakukannya, kita bisa membuat <em>array</em> baru dari <em>array</em> asli di <em>state</em> kita dengan memanggil method non-mutasi seperti <code>filter()</code> dan <code>map()</code>. Kemudian kita dapat menge-<em>set</em> <em>state</em> kita ke <em>array</em> baru yang dihasilkan.</p>
+<p>Berikut adalah tabel referensi operasi <em>array</em> umum. Saat berurusan dengan <em>array</em> di dalam <em>state</em> React, kita harus menghindari <em>method</em>-<em>method</em> di kolom kiri, dan memilih <em>method</em>-<em>method</em> di kolom kanan:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>hindari (memutasi <em>array</em>)</th>
+<th>gunakan (mengembalikan <em>array</em> baru)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>menambahkan</td>
+<td><code>push</code>, <code>unshift</code></td>
+<td><code>concat</code>, <code>[...arr]</code> sintaks <em>spread</em> (<a href="#menambah-to-an-_array_">contoh</a>)</td>
+</tr>
+<tr>
+<td>menghapus</td>
+<td><code>pop</code>, <code>shift</code>, <code>splice</code></td>
+<td><code>filter</code>, <code>slice</code> (<a href="#menghapus-dari-_array_">contoh</a>)</td>
+</tr>
+<tr>
+<td>mengganti</td>
+<td><code>splice</code>, <code>arr[i] = ...</code> <em>assignment</em> (penugasan)</td>
+<td><code>map</code> (<a href="#mengganti-item-dalam-_array_">contoh</a>)</td>
+</tr>
+<tr>
+<td>mengurutkan</td>
+<td><code>reverse</code>, <code>sort</code></td>
+<td>salin <em>array</em> terlebih dahulu (<a href="#membuat-lain-perubahan-ke-_array_">contoh</a>)</td>
+</tr>
+</tbody>
+</table>
+<p>Atau, kita dapat <a href="#write-concise-update-logic-with-immer">menggunakan Immer</a> yang memungkinkan kita menggunakan <em>method</em>-<em>method</em> pada kedua kolom di atas.</p>
+<blockquote>
+<p><strong>Peringatan</strong></p>
+<p>Walaupun <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/_array_/slice"><code>slice</code></a> dan <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice"><code>splice</code></a> diberi nama serupa tetapi sangat berbeda:</p>
+<ul>
+<li><code>slice</code> memungkinkan kita menyalin <em>array</em> atau sebagian darinya.</li>
+<li><code>splice</code> <strong>memutasi</strong> <em>array</em> (untuk menyisipkan atau menghapus item).</li>
+</ul>
+<p>Di React, kita akan lebih sering menggunakan <code>slice</code> (tanpa <code>p</code>!) karena kita tidak ingin memutasi objek atau <em>array</em> dalam <em>state</em>. Materi sebelumnya (<a href="https://react.dev/learn/memperbarui-objek-dalam-state">Memperbarui Objek</a>) menjelaskan apa itu mutasi dan mengapa itu tidak direkomendasikan untuk <em>state</em>.</p>
+</blockquote>
+<h3 id="menambahkan-ke-array">Menambahkan ke <em>array</em></h3>
+<p><code>push()</code> akan memutasi <em>array</em> (yang kita tidak menginginkannya):</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">let</span> nextId = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">List</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [name, setName] = useState(<span class="hljs-string">""</span>);
+  <span class="hljs-keyword">const</span> [artists, setArtists] = useState([]);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Pematung yang menginspirasi:<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{name}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> setName(e.target.value)} /&gt;
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+          artists.push({
+            id: nextId++,
+            name: name,
+          });
+        }}
+      &gt;
+        Add
+      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        {artists.map((artist) =&gt; (
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{artist.id}</span>&gt;</span>{artist.name}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        ))}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  );
+}
+</div></code></pre>
+<p>Sebagai gantinya, buat <em>array</em> <em>baru</em> yang berisi item yang sudah ada <em>dan</em> item baru di bagian akhir. Ada beberapa cara untuk melakukannya, tetapi yang paling mudah adalah menggunakan sintaks <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#spread_in_array_literals"><em>array spread</em></a> <code>...</code>:</p>
+<pre class="hljs"><code><div>setArtists(
+  <span class="hljs-comment">// Ganti state</span>
+  [
+    <span class="hljs-comment">// dengan array baru</span>
+    ...artists, <span class="hljs-comment">// yang berisi semua item lama</span>
+    { <span class="hljs-attr">id</span>: nextId++, <span class="hljs-attr">name</span>: name }, <span class="hljs-comment">// dan satu item baru di akhir</span>
+  ]
+);
+</div></code></pre>
+<p>Sekarang berfungsi dengan benar:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">let</span> nextId = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">List</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [name, setName] = useState(<span class="hljs-string">""</span>);
+  <span class="hljs-keyword">const</span> [artists, setArtists] = useState([]);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Pematung yang menginspirasi:<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{name}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> setName(e.target.value)} /&gt;
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+          setArtists([...artists, { id: nextId++, name: name }]);
+        }}
+      &gt;
+        Add
+      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        {artists.map((artist) =&gt; (
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{artist.id}</span>&gt;</span>{artist.name}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        ))}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  );
+}
+</div></code></pre>
+<p>Sintaks <em>array spread</em> juga memungkinkan kita menambahkan item dengan menempatkannya <em>sebelum</em> <code>...artists</code> (<em>array</em> asli):</p>
+<pre class="hljs"><code><div>setArtists([
+  { <span class="hljs-attr">id</span>: nextId++, <span class="hljs-attr">nama</span>: nama },
+  ...artists, <span class="hljs-comment">// Taruh item lama di akhir</span>
+]);
+</div></code></pre>
+<p>Dengan cara ini, spread dapat melakukan tugas <code>push()</code> dengan menambahkan ke akhir <em>array</em> dan <code>unshift()</code> dengan menambahkan ke awal <em>array</em>.</p>
+<h3 id="menghapus-dari-array">Menghapus dari <em>array</em></h3>
+<p>Cara termudah untuk menghapus item dari <em>array</em> adalah dengan <em>memfilternya</em>. Dengan kata lain, kita akan menghasilkan <em>array</em> baru yang tidak berisi item tersebut. Untuk melakukannya, gunakan <em>method</em> <code>filter</code>, misalnya:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">let</span> initialArtists = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">"Marta Colvin Andrade"</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">"Lamidi Olonade Fakeye"</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">"Louise Nevelson"</span> },
+];
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">List</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [artists, setArtists] = useState(initialArtists);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Pematung yang menginspirasi:<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        {artists.map((artist) =&gt; (
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{artist.id}</span>&gt;</span>
+            {artist.name}{" "}
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+              <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+                setArtists(artists.filter((a) =&gt; a.id !== artist.id));
+              }}
+            &gt;
+              Delete
+            <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        ))}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  );
+}
+</div></code></pre>
+<p>Klik tombol &quot;Hapus&quot; beberapa kali, dan lihat <em>handler</em> kliknya.</p>
+<pre class="hljs"><code><div>setArtists(artists.filter(<span class="hljs-function">(<span class="hljs-params">a</span>) =&gt;</span> a.id !== artist.id));
+</div></code></pre>
+<p>Di sini, <code>artists.filter(a =&gt; a.id !== artist.id)</code> berarti &quot;buat <em>array</em> yang terdiri dari <code>artists</code> yang ID-nya berbeda dari <code>artist.id</code>&quot;. Dengan kata lain, tombol &quot;Hapus&quot; setiap artis akan memfilter <em>artis</em> itu dari <em>array</em>, lalu meminta <em>render</em> ulang dengan <em>array</em> yang dihasilkan. Perhatikan bahwa <code>filter</code> tidak mengubah <em>array</em> asli.</p>
+<h3 id="mengubah-array">Mengubah <em>array</em></h3>
+<p>Jika kita ingin mengubah beberapa atau semua item <em>array</em>, kita dapat menggunakan <code>map()</code> untuk membuat <em>array</em> <strong>baru</strong>. Fungsi yang akan kita berikan ke <code>peta</code> dapat memutuskan apa yang harus dilakukan dengan setiap item, berdasarkan datanya atau indeksnya (atau keduanya).</p>
+<p>Dalam contoh ini, sebuah <em>array</em> menyimpan koordinat dua lingkaran dan sebuah persegi. Saat kita menekan tombol, itu hanya memindahkan lingkaran ke bawah sebanyak 50 piksel. Ini dilakukan dengan membuat <em>array</em> data baru menggunakan <code>map()</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">let</span> initialShapes = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">"circle"</span>, <span class="hljs-attr">x</span>: <span class="hljs-number">50</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">100</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">"square"</span>, <span class="hljs-attr">x</span>: <span class="hljs-number">150</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">100</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">"circle"</span>, <span class="hljs-attr">x</span>: <span class="hljs-number">250</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">100</span> },
+];
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ShapeEditor</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [shapes, setShapes] = useState(initialShapes);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleClick</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> nextShapes = shapes.map(<span class="hljs-function">(<span class="hljs-params">shape</span>) =&gt;</span> {
+      <span class="hljs-keyword">if</span> (shape.type === <span class="hljs-string">"square"</span>) {
+        <span class="hljs-comment">// No change</span>
+        <span class="hljs-keyword">return</span> shape;
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// Return a new circle 50px below</span>
+        <span class="hljs-keyword">return</span> {
+          ...shape,
+          <span class="hljs-attr">y</span>: shape.y + <span class="hljs-number">50</span>,
+        };
+      }
+    });
+    <span class="hljs-comment">// Re-render with the new array</span>
+    setShapes(nextShapes);
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{handleClick}</span>&gt;</span>Pindahkan lingkaran ke bawah!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      {shapes.map((shape) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+          <span class="hljs-attr">key</span>=<span class="hljs-string">{shape.id}</span>
+          <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+            <span class="hljs-attr">background:</span> "<span class="hljs-attr">purple</span>",
+            <span class="hljs-attr">position:</span> "<span class="hljs-attr">absolute</span>",
+            <span class="hljs-attr">left:</span> <span class="hljs-attr">shape.x</span>,
+            <span class="hljs-attr">top:</span> <span class="hljs-attr">shape.y</span>,
+            <span class="hljs-attr">borderRadius:</span> <span class="hljs-attr">shape.type</span> === <span class="hljs-string">"circle"</span> ? "<span class="hljs-attr">50</span>%" <span class="hljs-attr">:</span> "",
+            <span class="hljs-attr">width:</span> <span class="hljs-attr">20</span>,
+            <span class="hljs-attr">height:</span> <span class="hljs-attr">20</span>,
+          }}
+        /&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  );
+}
+</div></code></pre>
+<h3 id="mengganti-item-dalam-array">Mengganti item dalam <em>array</em></h3>
+<p>Sangat umum untuk ingin mengganti satu atau lebih item dalam <em>array</em>. Penugasan seperti <code>arr[0] = 'bird'</code> memutasi <em>array</em> asli, jadi kita sebaiknya menggunakan <code>map</code> untuk ini juga.</p>
+<p>Untuk mengganti item, buat <em>array</em> baru dengan <code>map</code>. Di dalam panggilan <code>map</code> kita, kita akan menerima indeks item sebagai argumen kedua. Gunakan itu untuk memutuskan apakah akan mengembalikan item asli (argumen pertama) atau yang lainnya:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">let</span> initialCounters = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>];
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CounterList</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [counters, setCounters] = useState(initialCounters);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleIncrementClick</span>(<span class="hljs-params">index</span>) </span>{
+    <span class="hljs-keyword">const</span> nextCounters = counters.map(<span class="hljs-function">(<span class="hljs-params">c, i</span>) =&gt;</span> {
+      <span class="hljs-keyword">if</span> (i === index) {
+        <span class="hljs-comment">// Increment the clicked counter</span>
+        <span class="hljs-keyword">return</span> c + <span class="hljs-number">1</span>;
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// The rest haven't changed</span>
+        <span class="hljs-keyword">return</span> c;
+      }
+    });
+    setCounters(nextCounters);
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      {counters.map((counter, i) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{i}</span>&gt;</span>
+          {counter}
+          <span class="hljs-tag">&lt;<span class="hljs-name">button</span>
+            <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> {
+              handleIncrementClick(i);
+            }}
+          &gt;
+            +1
+          <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+  );
+}
+</div></code></pre>
+<h3 id="memasukkan-ke-dalam-array">Memasukkan ke dalam <em>array</em></h3>
+<p>Terkadang, kita mungkin ingin menyisipkan item pada posisi tertentu yang bukan di awal maupun di akhir. Untuk melakukannya, kita dapat menggunakan sintaks <em>array</em> spread <code>...</code> bersama dengan <em>method</em> <code>slice()</code>. Metode <code>slice()</code> memungkinkan kita memotong &quot;irisan&quot; dari <em>array</em>. Untuk menyisipkan item, kita akan membuat <em>array</em> yang menyebarkan irisan <em>sebelum</em> titik penyisipan, lalu item baru, lalu selebihnya dari <em>array</em> asli.</p>
+<p>Dalam contoh ini, tombol Sisipkan selalu menyisipkan pada indeks <code>1</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">let</span> nextId = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">const</span> initialArtists = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">"Marta Colvin Andrade"</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">"Lamidi Olonade Fakeye"</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">"Louise Nevelson"</span> },
+];
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">List</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [name, setName] = useState(<span class="hljs-string">""</span>);
+  <span class="hljs-keyword">const</span> [artists, setArtists] = useState(initialArtists);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleClick</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> insertAt = <span class="hljs-number">1</span>; <span class="hljs-comment">// Bisa indeks berapa pun</span>
+    <span class="hljs-keyword">const</span> nextArtists = [
+      <span class="hljs-comment">// Item-item sebelum titik penyisipan:</span>
+      ...artists.slice(<span class="hljs-number">0</span>, insertAt),
+      <span class="hljs-comment">// Item baru:</span>
+      { <span class="hljs-attr">id</span>: nextId++, <span class="hljs-attr">name</span>: name },
+      <span class="hljs-comment">// Item-item setelah titik penyisipan:</span>
+      ...artists.slice(insertAt),
+    ];
+    setArtists(nextArtists);
+    setName(<span class="hljs-string">""</span>);
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Pematung yang menginspirasi:<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{name}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> setName(e.target.value)} /&gt;
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{handleClick}</span>&gt;</span>Sisipkan<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        {artists.map((artist) =&gt; (
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{artist.id}</span>&gt;</span>{artist.name}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        ))}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  );
+}
+</div></code></pre>
+<h3 id="membuat-perubahan-lain-pada-array">Membuat perubahan lain pada <em>array</em></h3>
+<p>Ada beberapa hal yang tidak dapat kita lakukan dengan sintaks sebar dan <em>method</em>-<em>method</em> non-mutasi seperti <code>map()</code> dan <code>filter()</code> saja. Misalnya, kita mungkin ingin membalikkan atau mengurutkan <em>array</em>. Metode JavaScript <code>reverse()</code> dan <code>sort()</code> memutasikan <em>array</em> asli, sehingga kita tidak dapat menggunakannya secara langsung.</p>
+<p><strong>Namun, kita dapat menyalin <em>array</em> terlebih dahulu, lalu mengubahnya.</strong></p>
+<p>Misalnya:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">let</span> nextId = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">const</span> initialList = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Big Bellies"</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Lunar Landscape"</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Terracotta Army"</span> },
+];
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">List</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [list, setList] = useState(initialList);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleClick</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> nextList = [...list];
+    nextList.reverse();
+    setList(nextList);
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{handleClick}</span>&gt;</span>Balikkan<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+        {list.map((artwork) =&gt; (
+          <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{artwork.id}</span>&gt;</span>{artwork.title}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        ))}
+      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  );
+}
+</div></code></pre>
+<p>Di sini, kita menggunakan sintaks spread <code>[...list]</code> untuk membuat salinan <em>array</em> asli terlebih dahulu. Sekarang setelah kita memiliki salinannya, kita dapat menggunakan <em>method</em>-<em>method</em> mutasi seperti <code>nextList.reverse()</code> atau <code>nextList.sort()</code>, atau bahkan menetapkan masing-masing item dengan <code>nextList[0] = &quot;something&quot;</code>.</p>
+<p>Namun, <strong>bahkan jika kita menyalin <em>array</em>, kita tidak dapat memutasi item yang ada <em>di dalamnya</em> secara langsung.</strong> Hal ini karena penyalinan bersifat dangkal--arik baru akan berisi item yang sama dengan yang asli. Jadi jika kita memodifikasi objek di dalam <em>array</em> yang disalin, kita memutasikan <em>state</em> yang ada. Misalnya, kode seperti ini adalah masalah.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> Daftar berikutnya = [...daftar];
+nextList[<span class="hljs-number">0</span>].seen = <span class="hljs-literal">true</span>; <span class="hljs-comment">// Masalah: memutasikan daftar[0]</span>
+setList(daftarberikutnya);
+</div></code></pre>
+<p>Meskipun <code>nextList</code> dan <code>list</code> adalah dua <em>array</em> yang berbeda, <strong><code>nextList[0]</code> dan <code>list[0]</code> menunjuk ke objek yang sama.</strong> Jadi dengan mengubah <code>nextList[0].seen</code>, kita juga mengubah <code>list[0].seen</code>. Ini adalah mutasi <em>state</em>, yang harus kita hindari! kita dapat mengatasi masalah ini dengan cara yang mirip dengan <a href="https://react.dev/learn/update-objects-in-state#update-a-nested-object">memperbarui objek JavaScript bertingkat</a>--dengan menyalin setiap item yang ingin kita ubah, bukan memutasinya. Begini caranya.</p>
+<h2 id="memperbarui-objek-di-dalam-array">Memperbarui objek di dalam <em>array</em></h2>
+<p>Objek tidak <em>benar-benar</em> terletak &quot;di dalam&quot; <em>array</em>. Mereka mungkin tampak &quot;di dalam&quot; dalam kode, tetapi setiap objek dalam <em>array</em> adalah nilai yang terpisah, yang &quot;ditunjukkan&quot; oleh <em>array</em>. Inilah mengapa kita harus berhati-hati saat mengubah <em>field</em> bersarang seperti <code>list[0]</code>. Daftar karya seni orang lain mungkin menunjuk ke elemen <em>array</em> yang sama!</p>
+<p><strong>Saat memperbarui <em>state</em> bersarang, kita perlu membuat salinan dari titik di mana kita ingin memperbarui, dan terus ke tingkat teratas.</strong> Mari kita lihat cara kerjanya.</p>
+<p>Dalam contoh ini, dua daftar karya seni terpisah memiliki <em>state</em> awal yang sama. Mereka seharusnya diisolasi, tetapi karena mutasi, <em>state</em> mereka secara tidak sengaja dibagikan, dan mencentang kotak di satu daftar memengaruhi daftar lainnya:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">let</span> nextId = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">const</span> initialList = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Big Bellies"</span>, <span class="hljs-attr">seen</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Lunar Landscape"</span>, <span class="hljs-attr">seen</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Terracotta Army"</span>, <span class="hljs-attr">seen</span>: <span class="hljs-literal">true</span> },
+];
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">BucketList</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [myList, setMyList] = useState(initialList);
+  <span class="hljs-keyword">const</span> [yourList, setYourList] = useState(initialList);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleToggleMyList</span>(<span class="hljs-params">artworkId, nextSeen</span>) </span>{
+    <span class="hljs-keyword">const</span> myNextList = [...myList];
+    <span class="hljs-keyword">const</span> artwork = myNextList.find(<span class="hljs-function">(<span class="hljs-params">a</span>) =&gt;</span> a.id === artworkId);
+    artwork.seen = nextSeen;
+    setMyList(myNextList);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleToggleYourList</span>(<span class="hljs-params">artworkId, nextSeen</span>) </span>{
+    <span class="hljs-keyword">const</span> yourNextList = [...yourList];
+    <span class="hljs-keyword">const</span> artwork = yourNextList.find(<span class="hljs-function">(<span class="hljs-params">a</span>) =&gt;</span> a.id === artworkId);
+    artwork.seen = nextSeen;
+    setYourList(yourNextList);
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Daftar Karya Seni<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Daftar karya seni saya untuk dilihat:<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ItemList</span> <span class="hljs-attr">artworks</span>=<span class="hljs-string">{myList}</span> <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{handleToggleMyList}</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Daftar karya seni Anda untuk dilihat:<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ItemList</span> <span class="hljs-attr">artworks</span>=<span class="hljs-string">{yourList}</span> <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{handleToggleYourList}</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  );
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ItemList</span>(<span class="hljs-params">{ artworks, onToggle }</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      {artworks.map((artwork) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{artwork.id}</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+              <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span>
+              <span class="hljs-attr">checked</span>=<span class="hljs-string">{artwork.seen}</span>
+              <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> {
+                onToggle(artwork.id, e.target.checked);
+              }}
+            /&gt;
+            {artwork.title}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+  );
+}
+</div></code></pre>
+<p>Masalahnya ada di kode seperti ini:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> myNextList = [...myList];
+<span class="hljs-keyword">const</span> artwork = myNextList.find(<span class="hljs-function">(<span class="hljs-params">a</span>) =&gt;</span> a.id === artworkId);
+artwork.seen = nextSeen; <span class="hljs-comment">// Masalah: memutasikan item yang ada</span>
+setMyList(myNextList);
+</div></code></pre>
+<p>Meskipun <em>array</em> <code>myList</code> itu sendiri baru, <em>itemnya sendiri</em> sama dengan <em>array</em> <code>myList</code> asli. Jadi, mengubah <code>artwork.seen</code> akan mengubah item karya seni <em>asli</em>. Item artwork tersebut juga ada di <code>yourList</code>, yang menyebabkan bug. Bug seperti ini mungkin sulit untuk dipikirkan, tetapi untungnya bug tersebut hilang jika kita menghindari <em>state</em> mutasi.</p>
+<p><strong>Kita dapat menggunakan <code>map</code> untuk mengganti item lama dengan versi terbarunya tanpa mutasi.</strong></p>
+<pre class="hljs"><code><div>setMyList(
+  myList.map(<span class="hljs-function">(<span class="hljs-params">artwork</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (artwork.id === artworkId) {
+      <span class="hljs-comment">// Buat objek *baru* dengan perubahan</span>
+      <span class="hljs-keyword">return</span> { ...artwork, <span class="hljs-attr">seen</span>: nextSeen };
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// Tidak ada perubahan</span>
+      <span class="hljs-keyword">return</span> artwork;
+    }
+  })
+);
+</div></code></pre>
+<p>Di sini, <code>...</code> adalah sintaks penyebaran objek yang digunakan untuk <a href="https://react.dev/learn/update-objects-in-state#copying-objects-with-the-spread-syntax">membuat salinan objek.</a></p>
+<p>Dengan pendekatan ini, tidak ada item <em>state</em> yang ada yang dimutasi, dan bug diperbaiki:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">let</span> nextId = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">const</span> initialList = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Big Bellies"</span>, <span class="hljs-attr">seen</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Lunar Landscape"</span>, <span class="hljs-attr">seen</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Terracotta Army"</span>, <span class="hljs-attr">seen</span>: <span class="hljs-literal">true</span> },
+];
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">BucketList</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [myList, setMyList] = useState(initialList);
+  <span class="hljs-keyword">const</span> [yourList, setYourList] = useState(initialList);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleToggleMyList</span>(<span class="hljs-params">artworkId, nextSeen</span>) </span>{
+    setMyList(
+      myList.map(<span class="hljs-function">(<span class="hljs-params">artwork</span>) =&gt;</span> {
+        <span class="hljs-keyword">if</span> (artwork.id === artworkId) {
+          <span class="hljs-comment">// Buat objek *baru* dengan perubahan</span>
+          <span class="hljs-keyword">return</span> { ...artwork, <span class="hljs-attr">seen</span>: nextSeen };
+        } <span class="hljs-keyword">else</span> {
+          <span class="hljs-comment">// Tidak ada perubahan</span>
+          <span class="hljs-keyword">return</span> artwork;
+        }
+      })
+    );
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleToggleYourList</span>(<span class="hljs-params">artworkId, nextSeen</span>) </span>{
+    setYourList(
+      yourList.map(<span class="hljs-function">(<span class="hljs-params">artwork</span>) =&gt;</span> {
+        <span class="hljs-keyword">if</span> (artwork.id === artworkId) {
+          <span class="hljs-comment">// Buat objek *baru* dengan perubahan</span>
+          <span class="hljs-keyword">return</span> { ...artwork, <span class="hljs-attr">seen</span>: nextSeen };
+        } <span class="hljs-keyword">else</span> {
+          <span class="hljs-comment">// Tidak ada perubahan</span>
+          <span class="hljs-keyword">return</span> artwork;
+        }
+      })
+    );
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Daftar Karya Seni<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Daftar karya seni saya untuk dilihat:<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ItemList</span> <span class="hljs-attr">artworks</span>=<span class="hljs-string">{myList}</span> <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{handleToggleMyList}</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Daftar karya seni Anda untuk dilihat:<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ItemList</span> <span class="hljs-attr">artworks</span>=<span class="hljs-string">{yourList}</span> <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{handleToggleYourList}</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  );
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ItemList</span>(<span class="hljs-params">{ artworks, onToggle }</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      {artworks.map((artwork) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{artwork.id}</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+              <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span>
+              <span class="hljs-attr">checked</span>=<span class="hljs-string">{artwork.seen}</span>
+              <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> {
+                onToggle(artwork.id, e.target.checked);
+              }}
+            /&gt;
+            {artwork.title}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+  );
+}
+</div></code></pre>
+<p>Secara umum, <strong>kita sebaiknya hanya memutasikan objek yang baru saja kita buat.</strong> Jika kita menyisipkan karya seni <em>baru</em>, kita dapat memutasikannya, tetapi jika kita berurusan dengan sesuatu yang sudah dalam <em>state</em>, kita perlu membuatnya sebuah salinan.</p>
+<h3 id="tulis-logika-pembaruan-yang-ringkas-dengan-immer">Tulis logika pembaruan yang ringkas dengan Immer</h3>
+<p>Memperbarui <em>array</em> bersarang tanpa mutasi bisa sedikit berulang. <a href="https://react.dev/learn/update-objects-in-state#write-concise-update-logic-with-immer">Sama seperti objek</a>:</p>
+<ul>
+<li>Umumnya, kita tidak perlu memperbarui <em>state</em> lebih dari beberapa level. Jika objek <em>state</em> kita sangat dalam, kita mungkin ingin <a href="https://react.dev/learn/choosing-the-state-structure#avoid-deeply-nested-state">merestrukturisasinya secara berbeda</a> agar objek tersebut rata.</li>
+<li>Jika kita tidak ingin mengubah struktur <em>state</em>, kita mungkin lebih memilih untuk menggunakan <a href="https://github.com/immerjs/use-immer">Immer</a>, yang memungkinkan kita menulis menggunakan sintaks yang nyaman namun bermutasi dan berhati-hati memproduksi salinan untuk kita.</li>
+</ul>
+<p>Berikut adalah contoh Daftar Karya Seni yang ditulis ulang dengan Immer:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { useImmer } <span class="hljs-keyword">from</span> <span class="hljs-string">"use-immer"</span>;
+
+<span class="hljs-keyword">let</span> nextId = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">const</span> initialList = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Big Bellies"</span>, <span class="hljs-attr">seen</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Lunar Landscape"</span>, <span class="hljs-attr">seen</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">"Terracotta Army"</span>, <span class="hljs-attr">seen</span>: <span class="hljs-literal">true</span> },
+];
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">BucketList</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [myList, updateMyList] = useImmer(initialList);
+  <span class="hljs-keyword">const</span> [yourList, updateYourList] = useImmer(initialList);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleToggleMyList</span>(<span class="hljs-params">id, nextSeen</span>) </span>{
+    updateMyList(<span class="hljs-function">(<span class="hljs-params">draft</span>) =&gt;</span> {
+      <span class="hljs-keyword">const</span> artwork = draft.find(<span class="hljs-function">(<span class="hljs-params">a</span>) =&gt;</span> a.id === id);
+      artwork.seen = nextSeen;
+    });
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleToggleYourList</span>(<span class="hljs-params">artworkId, nextSeen</span>) </span>{
+    updateYourList(<span class="hljs-function">(<span class="hljs-params">draft</span>) =&gt;</span> {
+      <span class="hljs-keyword">const</span> artwork = draft.find(<span class="hljs-function">(<span class="hljs-params">a</span>) =&gt;</span> a.id === artworkId);
+      artwork.seen = nextSeen;
+    });
+  }
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Daftar Karya Seni<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Daftar karya seni saya untuk dilihat:<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ItemList</span> <span class="hljs-attr">artworks</span>=<span class="hljs-string">{myList}</span> <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{handleToggleMyList}</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Daftar karya seni Anda untuk dilihat:<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ItemList</span> <span class="hljs-attr">artworks</span>=<span class="hljs-string">{yourList}</span> <span class="hljs-attr">onToggle</span>=<span class="hljs-string">{handleToggleYourList}</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  );
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ItemList</span>(<span class="hljs-params">{ artworks, onToggle }</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      {artworks.map((artwork) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{artwork.id}</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+              <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span>
+              <span class="hljs-attr">checked</span>=<span class="hljs-string">{artwork.seen}</span>
+              <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(e)</span> =&gt;</span> {
+                onToggle(artwork.id, e.target.checked);
+              }}
+            /&gt;
+            {artwork.title}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+  );
+}
+</div></code></pre>
+<p>Perhatikan bagaimana dengan Immer, <strong>mutasi seperti <code>artwork.seen = nextSeen</code> sekarang baik-baik saja:</strong></p>
+<pre class="hljs"><code><div>updateMyTodos(<span class="hljs-function">(<span class="hljs-params">draft</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> artwork = draft.find(<span class="hljs-function">(<span class="hljs-params">a</span>) =&gt;</span> a.id === artworkId);
+  artwork.seen = nextSeen;
+});
+</div></code></pre>
+<p>Ini karena kita tidak memutasi <em>state</em> <em>asli</em>, tetapi kita memutasi objek <code>draft</code> khusus yang disediakan oleh Immer. Demikian pula, kita dapat menerapkan <em>method</em>-<em>method</em> mutasi seperti <code>push()</code> dan <code>pop()</code> ke konten <code>draft</code>.</p>
+<p>Di balik layar, Immer selalu membuat <em>state</em> berikutnya dari awal sesuai dengan perubahan yang telah kita lakukan pada <code>draft</code>. Ini membuat <em>event handler</em> kita sangat ringkas tanpa pernah memutasi <em>state</em>.</p>
+<p>Ringkasan:</p>
+<ul>
+<li>Kita dapat memasukkan <em>array</em> ke dalam <em>state</em>, tetapi kita tidak dapat mengubahnya.</li>
+<li>Jangan memutasi <em>array</em>, tapi buatlah versi <em>baru</em>, dan perbarui <em>state</em>-nya.</li>
+<li>Kita dapat menggunakan sintaks <em>array spread</em> <code>[...arr, newItem]</code> untuk membuat <em>array</em> dengan item baru.</li>
+<li>Kita dapat menggunakan <code>filter()</code> dan <code>map()</code> untuk membuat <em>array</em> baru dengan item yang difilter atau diubah.</li>
+<li>Kita dapat menggunakan Immer untuk menjaga agar kode kita tetap ringkas.</li>
+</ul>
+
+</body>
+</html>

@@ -20,7 +20,8 @@
 #card-container {
     align-items: center;
     width: 700px;
-    padding: 20px;
+    padding: 40px;
+    gap: 20px;
     display: flex;
     flex-direction: column;
     background-color: cadetblue;
@@ -35,7 +36,12 @@
     font-weight: bold;
     border: 0;
     height: 30px;
-    margin: 10px;
+}
+
+#button-container {
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .like {

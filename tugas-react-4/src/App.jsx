@@ -32,6 +32,7 @@ const places = [
 function App() {
   return (
     <>
+    <h1>{}</h1>
       <Header />
       {places.map((i, n) => (
         <Place key={places[n].id}

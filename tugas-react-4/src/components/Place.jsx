@@ -11,7 +11,6 @@ export default function Place(props) {
 
   function handleLike() {
     setLiked(!liked);
-
   }
 
   return (
@@ -20,8 +19,14 @@ export default function Place(props) {
         <div id="card-container">
           <h1>{props.nama}</h1>
           <img src={props.src} />
-          <button onClick={handleLike} className={liked ? "like" : "liked"} >{liked ? "Batal Suka" : "Suka"}</button>
-          <button className="show-more" onClick={handleMoreClick}>{showMore ? "Sembunyikan" : "Tampilkan"}</button>
+          <div id="button-container">
+            <button onClick={handleLike} className={liked ? "like" : "liked"}>
+              {liked ? "Batal Suka" : "Suka"}
+            </button>
+            <button className="show-more" onClick={handleMoreClick}>
+              {showMore ? "Sembunyikan" : "Tampilkan"}
+            </button>
+          </div>
           {showMore && <p>{props.desc}</p>}
         </div>
       </div>

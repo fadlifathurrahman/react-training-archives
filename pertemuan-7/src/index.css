@@ -1,0 +1,18 @@
+body{
+  margin: 0;
+  font-family: "Google Sans", sans-serif;
+  
+  & .products-container {
+    display: flex;
+    width: 256px;
+    gap: 8px;
+
+    > .product {
+      padding: 16px;
+
+      > img {
+        width: 256px;
+      }
+    }
+  }
+}

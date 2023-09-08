@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "93f4118f-42be-497d-8caa-f4182f31dd59",
+		"name": "Caruban_Tourism",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29237704"
+	},
+	"item": [
+		{
+			"name": "Get all places",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/auth/me"
+			},
+			"response": []
+		},
+		{
+			"name": "Get place by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/places/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all dishes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/dishes"
+			},
+			"response": []
+		},
+		{
+			"name": "Get dish by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/dishes/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    email: \"fadli@gmail.com\",\r\n    password: \"1234\",\r\n}"
+				},
+				"url": "http://localhost:3000/api/users/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    email: \"test@gmail.com\",\r\n    password: \"1234\",\r\n    name: \"Muhammad Fadli\",\r\n    username: \"fad\",\r\n    phone: \"089111222333\",\r\n}"
+				},
+				"url": "http://localhost:3000/api/users/register"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoiZmF0aHVyQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEVsaUw3d1VrTlA5bGh1Zzk1dTNCMmU0QndRV1VuMURVN2RsaXRYYU5lNjI2UlNLcWMzSFlxIiwibmFtZSI6ImZhZGxpIiwidXNlcm5hbWUiOiJmYWRsaSIsInBob25lIjoiMzQ2MzQ2MzQ2MyIsImlhdCI6MTY5MjkwMDg4Nn0.YTnJ7n-ryDLgM9v2pvC6lBLz07oHCc7J2RNYA4NOEEo"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

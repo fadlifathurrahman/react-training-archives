@@ -1,0 +1,34 @@
+Hal-hal yang perlu dijelaskan:
+- Judul: Caruban Tourism
+- Kegunaan: Memberikan rekomendasi destinasis wisata dan makanan khas Cirebon
+- Fitur-fitur:
+	1. Pencarian destinasi wisata
+	2. Pengelompokan destinasi wisata
+	3. Peta destinasi wisata
+	4. Pemesanan tiket destinasi wisata
+	5. Pencarian makanan khas
+	6. Pencarian otomatis makanan khas melalui google
+	7. Pengaturan akun
+- Keunggulan:
+- Kesulitan/tantangan selama pengerjaan
+	1. Teknis
+		- Menggunakan Node.js dan express sebagai backend
+	2. Non-teknis
+		- Mengumpulkan data destinasi wisata dan makanan khas
+
+Pertanyaan umum:
+- Relasi antartabel
+- Kegunaan tiap-tiap package di backend
+- Kegunaan tiap-tiap package di frontend
+- Pembaruan objek atau array dalam state
+- Context / outlet context
+- Effect
+- Aliran data dari basis data hingga ke frontend
+- Otentikasi dan otorisasi JWT
+
+Pertanyaan tambahan (jika menggunakannya):
+- Kegunaan tiap-tiap middleware di backend
+- DBMS dan DB tool
+- Hashing kata sandi
+- Alat-alat devops
+- Penggunaan teknologi atau sintaks lain yang tidak diajarkan di pelatihan
